@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCmouseYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,20 +30,41 @@
     </svg>
     <script>
         let ghost = document.getElementById("redGhost");
-        let x = 260; //You'll want the x-coordinate of the mouse to be a global variable
-        let y = 260; //You'll want the y-coordinate of the mouse to be a global variable
-
+        let mouseX = 260; //You'll want the x-coordinate of the mouse to be a global variable
+        let mouseY = 260; //You'll want the y-coordinate of the mouse to be a global variable
+        let ds = 2;
+        
+        document.getElementById("canvas").addEventListener("mousemove", findPos, false);
+        function findPos(event) {
+            mouseX = event.offsetX;
+            mouseY = event.offsetY;
+        }
         /** You'll want to create a mousemove event listener that publishes the current
         mouse coordinate values to these global x and y variables */
-
+        
         /** You'll want to create a set interval callback that moves the ghost
         towards these mouse coordinates **/
-
+        let timer = setInterval(move, 10);
         /* In the callback function, you should be able to get the current "x" attribute
         of the ghost by using ghost.getAttribute("x"), and you should be able to set the 
         "x" attribute of the ghost to a value using ghost.setAttribute("x", value). The 
         same is true for "y". */
-        
+        function move() {
+            let ox = Number(ghost.getAttribute("x"));
+            let oy = Number(ghost.getAttribute("y"));
+            let dx = 0;
+            let dy = 0;
+            if(mouseX != ox) {
+            let m = (mouseY - oy) / (mouseX - ox);
+            dx = Math.sign(mouseX - ox) * ds / Math.sqrt(1 + m * m);
+            dy = m * dx;
+            } else {
+            dy = Math.sign(mouseY - oy) * ds;
+            }
+            ghost.setAttribute("x", ox + dx); 
+            ghost.setAttribute("y", oy + dy);
+            let y = oy + dy;
+        }
     </script>
 </body>
 </html>
