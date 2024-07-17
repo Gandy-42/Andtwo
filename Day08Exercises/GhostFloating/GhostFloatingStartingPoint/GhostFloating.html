@@ -9,6 +9,10 @@
         svg {
             border: 1px solid black;
         }
+        #slider {
+            display: block;
+            width: 1000px;
+        }
     </style>
 </head>
 <body>
@@ -28,13 +32,26 @@
             </g>
         </defs>
     </svg>
+
+    <input type="range" id="slider" value="50" min="0" max="100">
+    <span id="output"></span>
     <script>
         let ghost = document.getElementById("redGhost");
         let mouseX = 260; //You'll want the x-coordinate of the mouse to be a global variable
         let mouseY = 260; //You'll want the y-coordinate of the mouse to be a global variable
         let time = 10;
-        let velocity = .2;
+        let num = 0.3;
+        let velocity = num;
         let ds = time * velocity;
+
+        let slider = document.getElementById("slider");
+        let output = document.getElementById("output");
+        output.textContent = "Velocity: " + slider.value;
+
+        slider.oninput = function() {
+            output.textContent = "Velocity: " + this.value;
+            num = slider.value * .006;
+        }
 
         document.getElementById("canvas").addEventListener("mousemove", findPos, false);
         function findPos(event) {
@@ -72,9 +89,9 @@
             ghost.setAttribute("y", oy + dy);
 
             if (totalDist > 100) {
-                velocity = .2;
+                velocity = num;
             } else {
-                velocity = .002 * totalDist;
+                velocity = num * .01 * totalDist;
             }
 
             ds = time * velocity;
