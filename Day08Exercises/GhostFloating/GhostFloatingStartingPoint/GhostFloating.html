@@ -59,15 +59,14 @@
             let xDist = Math.abs(ox - mouseX);
             let yDist = Math.abs(oy - mouseY);
             let totalDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
-            if (totalDist > 1) {
-                if(mouseX != ox) {
+
+            if(mouseX != ox) {
                 let m = (mouseY - oy) / (mouseX - ox);
                 dx = Math.sign(mouseX - ox) * ds / Math.sqrt(1 + m * m);
                 dy = m * dx;
-                } else {
+            } else {
                 dy = Math.sign(mouseY - oy) * ds;
-                }
-            } 
+            }
             
             ghost.setAttribute("x", ox + dx); 
             ghost.setAttribute("y", oy + dy);
