@@ -1,3 +1,3 @@
 # Andtwo
-Andrew Lin
+andrew lin 
 Andrew Ganopolskiy
